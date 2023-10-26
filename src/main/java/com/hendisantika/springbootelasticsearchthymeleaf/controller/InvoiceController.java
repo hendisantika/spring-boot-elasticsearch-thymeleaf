@@ -4,6 +4,8 @@ import com.hendisantika.springbootelasticsearchthymeleaf.repository.InvoiceRepos
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,4 +23,9 @@ import org.springframework.stereotype.Controller;
 public class InvoiceController {
 
     private final InvoiceRepository invoiceRepository;
+
+    @GetMapping("/")
+    public String viewHomePage(Model model) {
+        return "home";
+    }
 }
