@@ -1,9 +1,16 @@
 package com.hendisantika.springbootelasticsearchthymeleaf.controller;
 
+import com.hendisantika.springbootelasticsearchthymeleaf.entity.Invoice;
 import com.hendisantika.springbootelasticsearchthymeleaf.repository.InvoiceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,4 +29,9 @@ public class InvoiceRestController {
 
     private final InvoiceRepository invoiceRepository;
 
+    @PostMapping("/createOrUpdateInvoice")
+    public ResponseEntity<Object> createOrUpdateInvoice(@RequestBody Invoice invoice) throws IOException {
+        String response = invoiceRepository.createOrUpdateInvoice(invoice);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
