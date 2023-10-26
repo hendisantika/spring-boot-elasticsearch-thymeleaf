@@ -6,9 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -33,5 +31,11 @@ public class InvoiceRestController {
     public ResponseEntity<Object> createOrUpdateInvoice(@RequestBody Invoice invoice) throws IOException {
         String response = invoiceRepository.createOrUpdateInvoice(invoice);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/getInvoice")
+    public ResponseEntity<Object> getInvoiceById(@RequestParam String invoiceId) throws IOException {
+        Invoice invoice = invoiceRepository.getInvoiceById(invoiceId);
+        return new ResponseEntity<>(invoice, HttpStatus.OK);
     }
 }
