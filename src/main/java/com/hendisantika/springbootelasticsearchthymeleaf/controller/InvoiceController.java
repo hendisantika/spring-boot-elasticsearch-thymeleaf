@@ -1,11 +1,14 @@
 package com.hendisantika.springbootelasticsearchthymeleaf.controller;
 
+import com.hendisantika.springbootelasticsearchthymeleaf.entity.Invoice;
 import com.hendisantika.springbootelasticsearchthymeleaf.repository.InvoiceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
 
@@ -35,5 +38,11 @@ public class InvoiceController {
     public String viewlistInvoicePage(Model model) throws IOException {
         model.addAttribute("listInvoiceDocuments", invoiceRepository.getAllInvoices());
         return "listInvoice";
+    }
+
+    @PostMapping("/saveInvoice")
+    public String saveInvoice(@ModelAttribute("invoice") Invoice invoice) throws IOException {
+        invoiceRepository.createOrUpdateInvoice(invoice);
+        return "redirect:/listInvoice";
     }
 }
