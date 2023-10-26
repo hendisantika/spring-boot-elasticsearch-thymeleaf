@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
@@ -44,5 +45,12 @@ public class InvoiceController {
     public String saveInvoice(@ModelAttribute("invoice") Invoice invoice) throws IOException {
         invoiceRepository.createOrUpdateInvoice(invoice);
         return "redirect:/listInvoice";
+    }
+
+    @GetMapping("/showFormForUpdate/{id}")
+    public String showFormForUpdate(@PathVariable(value = "id") String id, Model model) throws IOException {
+        Invoice invoice = invoiceRepository.getInvoiceById(id);
+        model.addAttribute("invoice", invoice);
+        return "updateInvoice";
     }
 }
