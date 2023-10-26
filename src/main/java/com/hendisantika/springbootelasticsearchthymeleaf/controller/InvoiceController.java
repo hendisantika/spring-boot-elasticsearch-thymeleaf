@@ -61,4 +61,10 @@ public class InvoiceController {
         model.addAttribute("invoice", invoice);
         return "addInvoice";
     }
+
+    @GetMapping("/deleteInvoice/{id}")
+    public String deleteInvoice(@PathVariable(value = "id") String id) throws IOException {
+        this.invoiceRepository.deleteInvoiceById(id);
+        return "redirect:/listInvoice";
+    }
 }
