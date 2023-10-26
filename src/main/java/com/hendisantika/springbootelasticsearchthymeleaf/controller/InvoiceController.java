@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.io.IOException;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-boot-elasticsearch-thymeleaf
@@ -27,5 +29,11 @@ public class InvoiceController {
     @GetMapping("/")
     public String viewHomePage(Model model) {
         return "home";
+    }
+
+    @GetMapping("/listInvoice")
+    public String viewlistInvoicePage(Model model) throws IOException {
+        model.addAttribute("listInvoiceDocuments", invoiceRepository.getAllInvoices());
+        return "listInvoice";
     }
 }
