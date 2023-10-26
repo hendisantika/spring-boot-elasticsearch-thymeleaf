@@ -1,16 +1,16 @@
 package com.hendisantika.springbootelasticsearchthymeleaf.repository;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.elasticsearch.core.DeleteRequest;
-import co.elastic.clients.elasticsearch.core.DeleteResponse;
-import co.elastic.clients.elasticsearch.core.GetResponse;
-import co.elastic.clients.elasticsearch.core.IndexResponse;
+import co.elastic.clients.elasticsearch.core.*;
+import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.hendisantika.springbootelasticsearchthymeleaf.entity.Invoice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -74,4 +74,15 @@ public class InvoiceRepository {
         return "Invoice with id : " + deleteResponse.id() + " does not exist.";
     }
 
+    public List<Invoice> getAllInvoices() throws IOException {
+        SearchRequest searchRequest = SearchRequest.of(s -> s.index(indexName));
+        SearchResponse<Invoice> searchResponse = elasticsearchClient.search(searchRequest, Invoice.class);
+        List<Hit<Invoice>> hits = searchResponse.hits().hits();
+        List<Invoice> invoices = new ArrayList<>();
+        for (Hit<Invoice> object : hits) {
+            log.info(String.valueOf(object.source()));
+            invoices.add(object.source());
+        }
+        return invoices;
+    }
 }
