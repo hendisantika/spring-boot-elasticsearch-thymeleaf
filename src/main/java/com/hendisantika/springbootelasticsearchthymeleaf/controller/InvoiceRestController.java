@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,5 +38,11 @@ public class InvoiceRestController {
     public ResponseEntity<Object> getInvoiceById(@RequestParam String invoiceId) throws IOException {
         Invoice invoice = invoiceRepository.getInvoiceById(invoiceId);
         return new ResponseEntity<>(invoice, HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllInvoices")
+    public ResponseEntity<Object> getAllInvoices() throws IOException {
+        List<Invoice> invoices = invoiceRepository.getAllInvoices();
+        return new ResponseEntity<>(invoices, HttpStatus.OK);
     }
 }
