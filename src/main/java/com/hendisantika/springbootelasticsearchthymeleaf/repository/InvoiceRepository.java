@@ -1,6 +1,8 @@
 package com.hendisantika.springbootelasticsearchthymeleaf.repository;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch.core.DeleteRequest;
+import co.elastic.clients.elasticsearch.core.DeleteResponse;
 import co.elastic.clients.elasticsearch.core.GetResponse;
 import co.elastic.clients.elasticsearch.core.IndexResponse;
 import com.hendisantika.springbootelasticsearchthymeleaf.entity.Invoice;
@@ -9,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Created by IntelliJ IDEA.
@@ -58,6 +61,17 @@ public class InvoiceRepository {
             log.info("Invoice not found");
         }
         return invoice;
+    }
+
+    public String deleteInvoiceById(String invoiceId) throws IOException {
+        DeleteRequest request = DeleteRequest.of(d -> d.index(indexName).id(invoiceId));
+
+        DeleteResponse deleteResponse = elasticsearchClient.delete(request);
+        if (Objects.nonNull(deleteResponse.result()) && !deleteResponse.result().name().equals("NotFound")) {
+            return "Invoice with id : " + deleteResponse.id() + " has been deleted successfully !.";
+        }
+        System.out.println("Invoice not found");
+        return "Invoice with id : " + deleteResponse.id() + " does not exist.";
     }
 
 }
