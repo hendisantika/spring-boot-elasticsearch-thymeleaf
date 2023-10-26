@@ -53,4 +53,12 @@ public class InvoiceController {
         model.addAttribute("invoice", invoice);
         return "updateInvoice";
     }
+
+    @GetMapping("/showNewInvoiceForm")
+    public String showNewInvoiceForm(Model model) {
+        // creating model attribute to bind form data
+        Invoice invoice = new Invoice();
+        model.addAttribute("invoice", invoice);
+        return "addInvoice";
+    }
 }
