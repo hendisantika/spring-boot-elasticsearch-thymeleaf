@@ -45,4 +45,10 @@ public class InvoiceRestController {
         List<Invoice> invoices = invoiceRepository.getAllInvoices();
         return new ResponseEntity<>(invoices, HttpStatus.OK);
     }
+
+    @DeleteMapping("/deleteInvoice")
+    public ResponseEntity<Object> deleteInvoiceById(@RequestParam String invoiceId) throws IOException {
+        String response = invoiceRepository.deleteInvoiceById(invoiceId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
