@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
 
 /**
@@ -50,5 +52,22 @@ public class InvoiceRestController {
     public ResponseEntity<Object> deleteInvoiceById(@RequestParam String invoiceId) throws IOException {
         String response = invoiceRepository.deleteInvoiceById(invoiceId);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("invoice/get")
+    public String getInvoice() {
+        log.info("Entering into method getInvoice()");
+        try {
+            log.info("finding Invoices");
+            throw new RuntimeException("Invoice not available");
+        } catch (Exception e) {
+            log.error(" Unable to find invoice" + e.getMessage());
+            e.printStackTrace();
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            log.error("Exception is -: " + sw);
+        }
+        return "INVOICE";
     }
 }

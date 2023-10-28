@@ -24,7 +24,7 @@ public class InvoiceConfig {
 
     @Bean
     public RestClient getRestClient() {
-        RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200)).build();
+        RestClient restClient = RestClient.builder(new HttpHost("https://4d1e70702b9b4117b549c6593de5f8e7.us-central1.gcp.cloud.es.io", 9243)).build();
         return restClient;
     }
 
