@@ -1,13 +1,8 @@
 package com.hendisantika.springbootelasticsearchthymeleaf.config;
 
-import co.elastic.clients.elasticsearch.ElasticsearchClient;
-import co.elastic.clients.json.jackson.JacksonJsonpMapper;
-import co.elastic.clients.transport.ElasticsearchTransport;
-import co.elastic.clients.transport.rest_client.RestClientTransport;
-import org.apache.http.HttpHost;
-import org.elasticsearch.client.RestClient;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.elasticsearch.client.ClientConfiguration;
+import org.springframework.data.elasticsearch.client.elc.ElasticsearchConfiguration;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,22 +15,30 @@ import org.springframework.context.annotation.Configuration;
  * To change this template use File | Settings | File Templates.
  */
 @Configuration
-public class InvoiceConfig {
+public class InvoiceConfig extends ElasticsearchConfiguration {
 
-    @Bean
-    public RestClient getRestClient() {
-        RestClient restClient = RestClient.builder(new HttpHost("https://4d1e70702b9b4117b549c6593de5f8e7.us-central1.gcp.cloud.es.io", 9243)).build();
-        return restClient;
-    }
-
-    @Bean
-    public ElasticsearchTransport getElasticsearchTransport() {
-        return new RestClientTransport(getRestClient(), new JacksonJsonpMapper());
-    }
-
-    @Bean
-    public ElasticsearchClient getElasticsearchClient() {
-        ElasticsearchClient client = new ElasticsearchClient(getElasticsearchTransport());
-        return client;
+    //    @Bean
+//    public RestClient getRestClient() {
+//        RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200))
+//                .build();
+//        return restClient;
+//    }
+//
+//    @Bean
+//    public ElasticsearchTransport getElasticsearchTransport() {
+//        return new RestClientTransport(getRestClient(), new JacksonJsonpMapper());
+//    }
+//
+//    @Bean
+//    public ElasticsearchClient getElasticsearchClient() {
+//        ElasticsearchClient client = new ElasticsearchClient(getElasticsearchTransport());
+//        return client;
+//    }
+    @Override
+    public ClientConfiguration clientConfiguration() {
+        return ClientConfiguration.builder()
+                .connectedTo("localhost:9200")
+                .withBasicAuth("elastic", "changeme")
+                .build();
     }
 }

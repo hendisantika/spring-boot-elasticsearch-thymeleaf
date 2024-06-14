@@ -36,7 +36,7 @@ public class InvoiceController {
     }
 
     @GetMapping("/listInvoice")
-    public String viewlistInvoicePage(Model model) throws IOException {
+    public String viewListInvoicePage(Model model) throws IOException {
         model.addAttribute("listInvoiceDocuments", invoiceRepository.getAllInvoices());
         return "listInvoice";
     }
