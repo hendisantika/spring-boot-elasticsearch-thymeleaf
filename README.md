@@ -7,3 +7,21 @@
 3. Make sure your ELK stack UP & RUNNING
 4. Run the application: `mvn clean spring-boot:run`
 5. Open your favorite browser: http://localhost:8080/listInvoice
+
+### Image Screenshot
+
+Home Page
+
+![Home Page](img/home.png "Home Page")
+
+Add New Data
+
+![Add New Data](img/add.png "Add New Data")
+
+List Invoice
+
+![List Invoice](img/list.png "List Invoice")
+
+Update Data
+
+![Update Data](img/update.png "Update Data")
