@@ -1,6 +1,5 @@
 package com.hendisantika.springbootelasticsearchthymeleaf.config;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchConfiguration;
 
@@ -14,7 +13,7 @@ import org.springframework.data.elasticsearch.client.elc.ElasticsearchConfigurat
  * Time: 11:33
  * To change this template use File | Settings | File Templates.
  */
-@Configuration
+//@Configuration
 public class InvoiceConfig extends ElasticsearchConfiguration {
 
     //    @Bean
@@ -38,7 +37,7 @@ public class InvoiceConfig extends ElasticsearchConfiguration {
     public ClientConfiguration clientConfiguration() {
         return ClientConfiguration.builder()
                 .connectedTo("localhost:9200")
-                .withBasicAuth("elastic", "changeme")
+                .withBasicAuth("elastic", "mhsj6S4eCTzb7lvlnISbCrKn")
                 .build();
     }
 }
